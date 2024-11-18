@@ -63,7 +63,6 @@ dependencies {
 
     implementation(libs.navigation.compose)
 
-    implementation(project(":home"))
-    implementation(project(":detail"))
+    implementation(project(":network"))
 
 }

@@ -1,26 +1,32 @@
 package com.alican
 
-import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
-): ResultWrapper<T> {
+): NetworkResult<T> {
     return withContext(dispatcher) {
         try {
-            ResultWrapper.Success(apiCall.invoke())
+            NetworkResult.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
             when (throwable) {
                 is kotlinx.io.IOException -> {
-                    ResultWrapper.GenericError()
+                    NetworkResult.GenericError()
                 }
 
                 else -> {
-                    ResultWrapper.GenericError()
+                    NetworkResult.GenericError()
                 }
             }
         }
     }
 }
+
+sealed class NetworkResult<out T> {
+    data class Success<out T>(val value: T) : NetworkResult<T>()
+    data class GenericError(val code: Int? = null, val error: String? = null) :
+        NetworkResult<Nothing>()
+}
+
