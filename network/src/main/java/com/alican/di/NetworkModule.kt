@@ -50,8 +50,10 @@ val provideHttpClientModule = module {
 }
 
 object IsolatedKoinContext {
-    private val koinApp: KoinApplication = koinApplication {
-        // Boş bir Koin uygulaması başlat
+    private val koinApp: KoinApplication by lazy {
+        koinApplication {
+            // Başlangıçta boş bırakıyoruz, SDK modülleri daha sonra yüklenecek
+        }
     }
 
     val koin: Koin
@@ -64,33 +66,84 @@ object IsolatedKoinContext {
     fun unloadModules(modules: List<Module>) {
         koinApp.koin.unloadModules(modules)
     }
-}
 
+    fun close() {
+        koinApp.close()
+    }
+}
 
 object AwesomeSdk {
 
     private var isInitialized = false
 
-    fun init() {
+    init {
+        // Initialize Koin when the SDK is loaded
+        initializeKoin()
+    }
+
+    private fun initializeKoin() {
         if (!isInitialized) {
-            // Koin modüllerini yükle
             IsolatedKoinContext.loadModules(listOf(provideHttpClientModule))
             isInitialized = true
         }
     }
 
-    // Bağımlılıkları kullanıcıya sağla
-    fun getExerciseApiService(): ExerciseApiService {
-        checkInitialization()
+    inline fun <reified T> get(): T {
+        // Get dependency from the isolated Koin context
         return IsolatedKoinContext.koin.get()
     }
 
-    private fun checkInitialization() {
-        if (!isInitialized) {
-            throw IllegalStateException("AwesomeSdk is not initialized. Call AwesomeSdk.init() first.")
-        }
+    fun close() {
+        // close isolated context
+        IsolatedKoinContext.close()
+        isInitialized = false
     }
 }
+
+//object IsolatedKoinContext {
+//    private val koinApp: KoinApplication = koinApplication {
+//        // Boş bir Koin uygulaması başlat
+//    }
+//
+//    val koin: Koin
+//        get() = koinApp.koin
+//
+//    fun loadModules(modules: List<Module>) {
+//        koinApp.koin.loadModules(modules)
+//    }
+//
+//    fun unloadModules(modules: List<Module>) {
+//        koinApp.koin.unloadModules(modules)
+//    }
+//}
+//
+//
+//object AwesomeSdk {
+//
+//    private var isInitialized = false
+//
+//    fun init() {
+//        if (!isInitialized) {
+//            // Koin modüllerini yükle
+//            IsolatedKoinContext.loadModules(listOf(provideHttpClientModule))
+//            isInitialized = true
+//        }
+//    }
+//
+//    // Bağımlılıkları kullanıcıya sağla
+//    fun getExerciseApiService(): ExerciseApiService {
+//        checkInitialization()
+//        return IsolatedKoinContext.koin.get()
+//    }
+//
+//    private fun checkInitialization() {
+//        if (!isInitialized) {
+//            throw IllegalStateException("AwesomeSdk is not initialized. Call AwesomeSdk.init() first.")
+//        }
+//    }
+//}
+
+
 
 
 // example usage of koin isolated context

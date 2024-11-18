@@ -2,6 +2,7 @@ package com.alican.multimodulewithkoin.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alican.AwesomeSdk2
 import com.alican.ExerciseApiService
 import com.alican.di.AwesomeSdk
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
 ) : ViewModel() {
 
-    private val repository: ExerciseApiService = AwesomeSdk.getExerciseApiService()
+    private val repository: ExerciseApiService = AwesomeSdk.get()
 
    private val _exercises = MutableStateFlow<List<String>>(emptyList())
     val exercises = _exercises.asStateFlow().onStart {

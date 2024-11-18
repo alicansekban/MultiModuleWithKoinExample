@@ -13,7 +13,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(allModules)
-            AwesomeSdk.init()
+           // AwesomeSdk.init()
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.alican
 
+import com.alican.di.provideHttpClientModule
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -14,6 +15,7 @@ import io.ktor.http.appendPathSegments
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
+import org.koin.core.context.startKoin
 
 class ExerciseApiService(
     private val client: HttpClient
