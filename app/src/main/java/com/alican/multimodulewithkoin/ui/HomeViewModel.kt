@@ -22,13 +22,15 @@ class HomeViewModel: ViewModel() {
     private fun getExercies() {
         viewModelScope.launch {
             when (val response = repository.getExerciseList(100)) {
-                is NetworkResult.GenericError -> {}
+                is NetworkResult.Error -> {
+                    val message = response.message
+                    _exercises.emit(listOf(message ?: ""))
+                }
                 is NetworkResult.Success -> {
-                    val list = response.value.map { it.name ?: "" }
+                    val list = response.data.map { it.name ?: "" }
                     _exercises.emit(list)
                 }
 
-                NetworkResult.NetworkError -> {}
             }
         }
     }
