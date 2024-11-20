@@ -14,11 +14,15 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val provideHttpClientModule = module {
+    single<HttpClientProvider> { DefaultHttpClientProvider() }
     single {
-        ExerciseApiService(get())
+        ExerciseApiService(get<HttpClientProvider>().provideClient())
     }
-    single {
-        HttpClient {
+}
+
+class DefaultHttpClientProvider : HttpClientProvider {
+    override fun provideClient(): HttpClient {
+        return HttpClient {
             defaultRequest {
                 val sdk = AwesomeSdk.getInstance()
                 url(sdk.BASE_URL)
@@ -29,7 +33,6 @@ val provideHttpClientModule = module {
                 logger = Logger.SIMPLE
                 level = LogLevel.ALL
             }
-
             install(ContentNegotiation) {
                 json(
                     json = Json {
@@ -38,8 +41,11 @@ val provideHttpClientModule = module {
                         ignoreUnknownKeys = true
                     }
                 )
-
             }
         }
     }
+}
+
+interface HttpClientProvider {
+    fun provideClient(): HttpClient
 }

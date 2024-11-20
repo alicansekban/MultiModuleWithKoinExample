@@ -6,9 +6,9 @@ import io.ktor.http.appendPathSegments
 
 class ExerciseApiService(
     private val client: HttpClient
-) {
+) : ExerciseApiServiceImp {
 
-    suspend fun getExerciseList(limit: Int): NetworkResult<List<ExerciseResponseItem>> {
+    override suspend fun getExerciseList(limit: Int): NetworkResult<List<ExerciseResponseItem>> {
         return safeApiCall<List<ExerciseResponseItem>>(client) {
             url {
                 appendPathSegments("exercises")
@@ -18,5 +18,9 @@ class ExerciseApiService(
         }
     }
 
+}
+
+interface ExerciseApiServiceImp {
+    suspend fun getExerciseList(limit: Int): NetworkResult<List<ExerciseResponseItem>>
 
 }
