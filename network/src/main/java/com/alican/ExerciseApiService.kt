@@ -4,6 +4,12 @@ import io.ktor.client.HttpClient
 import io.ktor.http.HttpMethod
 import io.ktor.http.appendPathSegments
 
+
+interface ExerciseApiServiceImp {
+    suspend fun getExerciseList(limit: Int): NetworkResult<List<ExerciseResponseItem>>
+}
+
+
 class ExerciseApiService(
     private val client: HttpClient
 ) : ExerciseApiServiceImp {
@@ -17,10 +23,5 @@ class ExerciseApiService(
             method = HttpMethod.Get
         }
     }
-
-}
-
-interface ExerciseApiServiceImp {
-    suspend fun getExerciseList(limit: Int): NetworkResult<List<ExerciseResponseItem>>
 
 }
