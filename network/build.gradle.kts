@@ -60,4 +60,8 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
 
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore)
+
+
 }
