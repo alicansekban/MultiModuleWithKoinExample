@@ -1,4 +1,4 @@
-package com.alican.multimodulewithkoin.ui
+package com.alican.multimodulewithkoin.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

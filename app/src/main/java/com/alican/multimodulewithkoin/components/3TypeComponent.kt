@@ -1,4 +1,4 @@
-package com.alican.multimodulewithkoin.ui
+package com.alican.multimodulewithkoin.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

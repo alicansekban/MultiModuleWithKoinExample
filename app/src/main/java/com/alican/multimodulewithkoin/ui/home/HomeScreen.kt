@@ -1,5 +1,6 @@
-package com.alican.multimodulewithkoin.ui
+package com.alican.multimodulewithkoin.ui.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -17,11 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -33,16 +31,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alican.multimodulewithkoin.R
+import com.alican.multimodulewithkoin.components.DoubleTopHorizontal
 import com.alican.multimodulewithkoin.components.FilterModel
 import com.alican.multimodulewithkoin.components.FilterType
 import com.alican.multimodulewithkoin.components.HomeCampaignComponent
@@ -80,16 +76,16 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         mutableStateOf(items)
     }
     Box(modifier = Modifier.fillMaxSize()) {
-//        AnimatedVisibility(firstVisibleItem.not()) {
-//            Image(
-//                painter = painterResource(R.drawable.home_top_bg),
-//                contentDescription = "",
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(300.dp)
-//            )
-//
-//        }
+        AnimatedVisibility(firstVisibleItem.not()) {
+            Image(
+                painter = painterResource(R.drawable.home_top_bg),
+                contentDescription = "",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+            )
+
+        }
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -202,77 +198,4 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-@Composable
-fun CollapsingToolbarWithOffset() {
-    val listState = rememberLazyListState()
-    val maxHeight = 250.dp
-    val minHeight = 100.dp
-
-    // Calculate the offset based on scroll position
-    val offsetHeightPx = with(LocalDensity.current) {
-        (maxHeight - minHeight).toPx()
-    }
-
-    val toolbarOffset = remember {
-        derivedStateOf {
-            val fraction = listState.firstVisibleItemScrollOffset / offsetHeightPx
-            (1 - fraction.coerceIn(0f, 1f)) * offsetHeightPx
-        }
-    }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Collapsing Header
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(maxHeight)
-                .graphicsLayer {
-                    translationY = -toolbarOffset.value
-                }
-                .background(Color.Red)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "",
-                    modifier = Modifier.size(32.dp)
-                )
-                Column {
-                    Text("Alican Sekban")
-                    Text("123456789")
-                }
-            }
-        }
-
-        // List Content
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = maxHeight)
-        ) {
-            items(50) { index ->
-                Text(
-                    text = "Item $index",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                )
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun HomePreview() {
-
-    HomeScreen()
-
 }

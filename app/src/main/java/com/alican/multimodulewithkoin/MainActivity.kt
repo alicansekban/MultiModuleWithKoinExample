@@ -14,7 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.alican.multimodulewithkoin.ui.AppBottomBar
-import com.alican.multimodulewithkoin.ui.HomeScreen
+import com.alican.multimodulewithkoin.ui.home.HomeScreen
 import com.alican.multimodulewithkoin.ui.theme.MultiModuleWithKoinTheme
 
 class MainActivity : ComponentActivity() {
