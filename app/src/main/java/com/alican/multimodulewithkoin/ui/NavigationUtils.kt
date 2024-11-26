@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -24,10 +21,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.alican.multimodulewithkoin.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.serialization.Serializable
@@ -54,26 +53,26 @@ fun AppBottomBar(modifier: Modifier = Modifier, navController: NavController) {
         BottomBarRoute(
             name = "Ana Sayfa",
             route = HomeScreenRoute,
-            unSelectedIcon = Icons.Outlined.Home,
-            selectedIcon = Icons.Filled.Home
+            unSelectedIcon = ImageVector.vectorResource(R.drawable.ic_home_selected),
+            selectedIcon = ImageVector.vectorResource(R.drawable.ic_home_selected)
         ),
         BottomBarRoute(
             name = "Puan Dükkanı",
             route = PointsShopScreenRoute,
             unSelectedIcon = Icons.Outlined.Search,
-            selectedIcon = Icons.Filled.Search
+            selectedIcon = ImageVector.vectorResource(R.drawable.ic_points)
         ),
         BottomBarRoute(
             name = "Cüzdan",
             route = WalletScreenRoute,
             unSelectedIcon = Icons.Outlined.Search,
-            selectedIcon = Icons.Filled.Search
+            selectedIcon = ImageVector.vectorResource(R.drawable.ic_wallet)
         ),
         BottomBarRoute(
             name = "Şifre Gir",
             route = QrScreenRoute,
             unSelectedIcon = Icons.Outlined.Search,
-            selectedIcon = Icons.Filled.Search
+            selectedIcon = ImageVector.vectorResource(R.drawable.ic_algida)
         )
     )
 

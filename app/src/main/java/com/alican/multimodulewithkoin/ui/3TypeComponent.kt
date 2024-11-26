@@ -1,5 +1,6 @@
 package com.alican.multimodulewithkoin.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,11 +15,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.alican.multimodulewithkoin.R
 
 
 @Composable
@@ -26,35 +31,36 @@ fun DoubleTopHorizontal(modifier: Modifier = Modifier) {
     Row(
         Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(150.dp)
             .padding(horizontal = 20.dp)
             .padding(top = 10.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
                 .weight(1f)
-                .clip(RoundedCornerShape(10.dp))
+                .clip(RoundedCornerShape(20.dp))
                 .background(Color.Gray)
-                .fillMaxSize()
         ) {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
+            Image(
+                painter = painterResource(R.drawable.magnum_dunyasi),
                 contentDescription = "",
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
             )
         }
         Box(
             modifier = Modifier
                 .weight(1f)
-                .clip(RoundedCornerShape(10.dp))
+                .clip(RoundedCornerShape(20.dp))
                 .background(Color.Gray)
-                .fillMaxSize()
         ) {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
+            Image(
+                painter = painterResource(R.drawable.tikla_kazan),
                 contentDescription = "",
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
             )
         }
     }
@@ -161,6 +167,6 @@ fun TripleTop(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun ComponentsPreview() {
-    TripleTop()
+    DoubleTopHorizontal()
 
 }

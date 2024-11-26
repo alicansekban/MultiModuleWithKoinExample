@@ -9,14 +9,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,9 +29,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.alican.multimodulewithkoin.R
 
 @Composable
 fun HomeCampaignComponent(modifier: Modifier = Modifier) {
@@ -43,7 +44,7 @@ fun HomeCampaignComponent(modifier: Modifier = Modifier) {
         elevation = CardDefaults.cardElevation(10.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(1.dp, Color.Gray)
+        border = BorderStroke(1.dp, Color(0xFFECEBEB))
     ) {
         Column(
             modifier = Modifier
@@ -53,39 +54,36 @@ fun HomeCampaignComponent(modifier: Modifier = Modifier) {
                 Card(
                     shape = RoundedCornerShape(12.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White),
-                    border = BorderStroke(1.dp, Color.Gray)
+                    border = BorderStroke(1.dp, Color(0xFFECEBEB))
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .height(150.dp)
                             .padding(horizontal = 8.dp, vertical = 8.dp)
-                            .border(
-                                border = BorderStroke(1.dp, Color.Gray),
-                                shape = RoundedCornerShape(12.dp)
-                            )
                             .clip(RoundedCornerShape(10.dp))
                     ) {
                         Image(
-                            imageVector = Icons.Default.AccountCircle,
+                            painter = painterResource(R.drawable.img_card_bg),
                             contentDescription = "",
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .size(150.dp)
+                                .fillMaxSize(),
+                            contentScale = ContentScale.Crop
                         )
                     }
                 }
 
                 Card(
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(12.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White),
-                    border = BorderStroke(1.dp, Color.Gray),
+                    border = BorderStroke(1.dp, Color(0xFFECEBEB)),
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                         .padding(start = 16.dp)
                         .offset(y = 8.dp) // Tarihi yukarı kaydırmak için offset
                 ) {
                     Box(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
