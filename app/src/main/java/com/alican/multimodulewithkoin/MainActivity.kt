@@ -4,14 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.alican.multimodulewithkoin.ui.AppBottomBar
 import com.alican.multimodulewithkoin.ui.HomeScreen
 import com.alican.multimodulewithkoin.ui.theme.MultiModuleWithKoinTheme
 
@@ -24,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
+                    Box(
                         Modifier
                             .fillMaxSize()
                             .padding(innerPadding)) {
@@ -33,9 +35,7 @@ class MainActivity : ComponentActivity() {
                             startDestination = "home"
                         ) {
                             composable("home") {
-                                HomeScreen {
-                                   // navController.navigate("detail")
-                                }
+                                HomeScreen()
 
                             }
                             composable("detail") {
@@ -44,6 +44,11 @@ class MainActivity : ComponentActivity() {
 //                                }
                             }
                         }
+                        AppBottomBar(
+                            navController = navController, modifier = Modifier.align(
+                                Alignment.BottomCenter
+                            )
+                        )
 
                     }
                 }
